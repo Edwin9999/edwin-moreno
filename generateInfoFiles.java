@@ -1,10 +1,12 @@
+package escenario_java_politecnico_grancolombiano;
 import java.io.*;
+import java.util.Random;
+public class GenerateInfoFiles1 {
 
-public class GenerateInfoFiles {
-    public static void main(String[] args) {
-        int salesmanCount = 20; // Número de vendedores para generar
-        int productsCount = 30; // Número de productos para generar
-        int salesCountPerSalesman = 30; // Número de ventas por vendedor
+	public static void main(String[] args) {
+        int salesmanCount = 20; // Number of sellers to generate
+        int productsCount = 30; // Number of products to generate
+        int salesCountPerSalesman = 30; // Number of sales per seller
 
         createSalesManInfoFile(salesmanCount);
         createProductsFile(productsCount);
@@ -14,12 +16,13 @@ public class GenerateInfoFiles {
     }	
 
     public static void createSalesManInfoFile(int salesmanCount) {
-        // Creo un archivo con información de vendedores
-        String filename = "sales_info.txt";
-
+        // Seller Database
+        String filename = "data vendedores.txt";
+       
+        
         try (PrintWriter writer = new PrintWriter(filename)) {
-            for (int i = 0; i < salesmanCount; i++) {
-                String salesManLine = "TipoDocumento;" + (i + 1) + ";NombresVendedor" + (i + 1) + ";ApellidosVendedor" + (i + 1) + ";";
+            for (int i = 1; i < salesmanCount; i++) {
+                String salesManLine = "TDCC;" + (i + 1) + ";NombresVendedor" + (i + 1) + ";ApellidosVendedor" + (i + 1) + ";";
                 writer.println(salesManLine);
             }
         } catch (FileNotFoundException e) {
@@ -29,12 +32,12 @@ public class GenerateInfoFiles {
     }
 
     public static void createProductsFile(int productsCount) {
-        // Creo un archivo con información pseudoaleatoria de productos
-        String filename = "products.txt";
-
+        // 	Create a file with pseudo-random product information
+        String filename = "data productos.txt";
+        
         try (PrintWriter writer = new PrintWriter(filename)) {
             for (int i = 0; i < productsCount; i++) {
-                String productLine = "IDProducto" + (i + 1) + ";NombreProducto" + (i + 1) + ";" + ((i + 1) * 10) + ";";
+            	 String productLine = "IDProducto" + (i + 1) + ";NombreProducto" + (i + 1) + ";" + ((i + 1) * 1575) + ";";
                 writer.println(productLine);
             }
         } catch (FileNotFoundException e) {
@@ -44,12 +47,14 @@ public class GenerateInfoFiles {
     }
 
     public static void createSalesFiles(int salesmanCount, int salesCountPerSalesman) {
-        // Creo archivos pseudoaleatorios de ventas para cada vendedor
+        // Create pseudo-random sales files for each salesperson
         for (int i = 0; i < salesmanCount; i++) {
-            String filename = "sales/vendedor_" + (i + 1) + ".txt";
+            String filename = "sales/" + (i + 1) + ".txt";
+            Random random = new Random();
             try (PrintWriter writer = new PrintWriter(filename)) {
                 for (int j = 0; j < salesCountPerSalesman; j++) {
-                    String saleLine = "TipoDocumentoVendedor;" + (i + 1) + ";IDProducto" + ((j % 20) + 1) + ";" + ((j % 5) + 1) + ";";
+                	int randomNumber = random.nextInt(100) + 1;
+                    String saleLine = "TDCC;" + (i + 1) + ";IDProducto" + ((j % 20) + 1) + ";" +  randomNumber + ";";
                     writer.println(saleLine);
                 }
             } catch (FileNotFoundException e) {
